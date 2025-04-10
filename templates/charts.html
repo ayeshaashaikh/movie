@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Data Insights</title>
+    <style>
+        body { font-family: Arial; padding: 20px; background-color: #f9f9f9; }
+        img { max-width: 90%; margin: 20px auto; display: block; border-radius: 8px; }
+        h2 { text-align: center; }
+    </style>
+</head>
+<body>
+    <h2>📊 Movie Data Insights</h2>
+    <img src="{{ url_for('static', filename='charts/top_genres.png') }}" alt="Top Genres">
+    <img src="{{ url_for('static', filename='charts/top_actors.png') }}" alt="Top Actors">
+    <img src="{{ url_for('static', filename='charts/similarity_heatmap.png') }}" alt="Similarity Heatmap">
+</body>
+</html>

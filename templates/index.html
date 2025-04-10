@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>🎬 Movie Recommender</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            color: #333;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            width: 90%;
+            max-width: 500px;
+            animation: fadeIn 0.8s ease;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #2c5364;
+            text-align: center;
+        }
+
+        label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 8px;
+            margin-top: 15px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: #2c5364;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #1b3548;
+        }
+
+        .recommendations {
+            margin-top: 30px;
+        }
+
+        .recommendations ul {
+            padding-left: 20px;
+            line-height: 1.8;
+        }
+
+        .charts-link {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .charts-link a {
+            color: #2c5364;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .charts-link a:hover {
+            text-decoration: underline;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎬 Movie Recommender</h1>
+        <form method="POST">
+            <label for="movie">Enter a Movie Title:</label>
+            <input type="text" name="movie" list="movies" placeholder="e.g. Interstellar" value="{{ movie_name }}" required>
+            <datalist id="movies">
+                {% for movie in movie_list %}
+                    <option value="{{ movie }}">
+                {% endfor %}
+            </datalist>
+
+            <label for="model">Choose Recommendation Model:</label>
+            <select name="model">
+                <option value="count" {% if selected_model == 'count' %}selected{% endif %}>Count Vectorizer</option>
+                <option value="tfidf" {% if selected_model == 'tfidf' %}selected{% endif %}>TF-IDF Vectorizer</option>
+            </select>
+
+            <button type="submit" class="btn">Get Recommendations</button>
+        </form>
+
+        {% if recommendations %}
+            <div class="recommendations">
+                <h3>Recommended Movies:</h3>
+                <ul>
+                    {% for rec in recommendations %}
+                        <li>{{ rec }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <div class="charts-link">
+            <a href="/charts">📊 View Analytics & Trends</a>
+        </div>
+    </div>
+</body>
+</html>
